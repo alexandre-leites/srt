@@ -266,6 +266,7 @@ void srt::CUDT::construct()
     m_pSndLossList         = NULL;
     m_pRcvLossList         = NULL;
     m_iReorderTolerance    = 0;
+    m_iMaxReorderTolerance = 0;
     // How many times so far the packet considered lost has been received
     // before TTL expires.
     m_iConsecEarlyDelivery   = 0; 
@@ -10666,7 +10667,7 @@ int srt::CUDT::processData(CUnit* in_unit)
     if (m_bPeerRexmitFlag && was_sent_in_order)
     {
         ++m_iConsecOrderedDelivery;
-        if (m_iConsecOrderedDelivery >= 50)
+        if (0 && m_iConsecOrderedDelivery >= 50) // SRTLA: Disabled
         {
             m_iConsecOrderedDelivery = 0;
             if (m_iReorderTolerance > 0)
@@ -10829,7 +10830,7 @@ void srt::CUDT::unlose(const CPacket &packet)
             HLOGC(qrlog.Debug, log << "... arrived at TTL " << had_ttl << " case " << m_iConsecEarlyDelivery);
 
             // After 10 consecutive
-            if (m_iConsecEarlyDelivery >= 10)
+            if (0 && m_iConsecEarlyDelivery >= 10) // SRTLA: Disabled
             {
                 m_iConsecEarlyDelivery = 0;
                 if (m_iReorderTolerance > 0)
