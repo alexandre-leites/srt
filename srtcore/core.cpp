@@ -11413,7 +11413,12 @@ int srt::CUDT::checkNAKTimer(const steady_clock::time_point& currtime)
         if (currtime <= m_tsNextNAKTime.load())
             return BECAUSE_NO_REASON; // wait for next NAK time
 
-        sendCtrl(UMSG_LOSSREPORT);
+        /* Do not send periodic NAKs even for packets which are
+           within their retransmission window as set with SRTO_LOSSMAXTTL. This
+           would result in spurious retransmissions and affect load balancing when
+           using srtla
+        */
+        //sendCtrl(UMSG_LOSSREPORT);
         debug_decision = BECAUSE_NAKREPORT;
     }
 
