@@ -10376,7 +10376,7 @@ int srt::CUDT::processData(CUnit* in_unit)
     // always immediately.
     int initial_loss_ttl = 0;
     if (m_bPeerRexmitFlag)
-        initial_loss_ttl = m_config.iMaxReorderTolerance;
+        initial_loss_ttl = m_config.iMaxReorderTolerance; // SRTLA: Changed from m_iReorderTolerance
 
     // Track packet loss in statistics early, because a packet filter (e.g. FEC) might recover it later on,
     // supply the missing packet(s), and the loss will no longer be visible for the code that follows.
