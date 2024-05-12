@@ -266,7 +266,6 @@ void srt::CUDT::construct()
     m_pSndLossList         = NULL;
     m_pRcvLossList         = NULL;
     m_iReorderTolerance    = 0;
-    m_iMaxReorderTolerance = 0;
     // How many times so far the packet considered lost has been received
     // before TTL expires.
     m_iConsecEarlyDelivery   = 0; 
